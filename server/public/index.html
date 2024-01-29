@@ -4,28 +4,28 @@
     <meta charset="utf-8">
     <title>Server-Side Calculator</title>    
     <script defer src="scripts/axios.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
     <script defer src="scripts/client.js" charset="utf-8"></script>
   </head>
   <body>
     <h1>Server-Side Calculator</h1>
 
     <form data-testid="calculator">
-      <input placeholder="First Number">
-      <button>+</button>
-      <button>-</button>
-      <button>*</button>
-      <button>/</button>
-      <input placeholder="Second Number">
-      <button>=</button>
-      <button>C</button>
+      <input type="number" id="first_number" placeholder="First Number">
+      <button id="plus" onclick="onAddClick(event)">+</button>
+      <button id="minus" onclick="onMinusClick(event)">-</button>
+      <button id="multiply" onclick="onMultiplicationClick(event)">*</button>
+      <button id="divide" onclick="onDivisionClick(event)">/</button>
+      <input type="number" id="second_number" placeholder="Second Number">
+      <button id="equal" onsubmit="onEqualClick(event)">=</button>
+      <button id="clear">C</button>
     </form>
 
-    <section data-testid="recentResult">
+    <section id="recentResult" data-testid="recentResult">
       <!-- The most recent calculation result goes here. -->
     </section>
 
-    <section data-testid="resultHistory">
+    <section id="resultHistory" data-testid="resultHistory">
       <!-- The list of calculation results goes here. -->
     </section>
   </body>

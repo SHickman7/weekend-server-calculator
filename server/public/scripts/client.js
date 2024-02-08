@@ -25,11 +25,10 @@ function getCalculations (){
         // append calculations to the DOM
         renderToDOM(calculationsFromServer);  // <- Don't forget to actually do stuff with the data!
     })
-    .catch(function (error) { // <- This function runs if we get a status code in the range of 400-599 from the server
-        // Always have a .catch  It's easy to forget, but things go wrong sometimes.
-        // Notify the user when it happens.
+    .catch(function (error) { 
+      
         alert('Request to GET /calcuations failed.');
-        // It can be handy to see info about what went wrong:
+       
         console.error('Request to GET /calculations failed:', error);
     });
 }
@@ -57,9 +56,6 @@ function renderToDOM (calculations){
               //console.log('calculations.result',calculation.result)
         }
         
-        // let outputTelement2 = document.getElementById('recent_result');
-        // outputTelement2.innerHTML = '';
-        // outputTelement2.innerHTML += `${Number(calculations.result)}`;
 
         }
     
@@ -122,7 +118,8 @@ function onFormSubmit(event){
 
 }
 
-function onClearClick(){
+function onClearClick(event){
+    event.preventDefault();
     document.getElementById('first_number').value = '';
     document.getElementById('second_number').value = '';
 }

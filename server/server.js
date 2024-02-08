@@ -29,7 +29,7 @@ app.get('/calculations', function (req, res){
   
   //set status
   res.status(200);
-  //send
+  //sendco
   res.send(calculations)
 });
 

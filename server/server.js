@@ -7,18 +7,11 @@ app.use(express.static('server/public'));
 
 // Global variable that will contain all of the
 // calculation objects:
-let calculations = [
-  {
-    numOne: 3,
-    numTwo: 5,
-    operator: '+',
-    result: 8
-  }
-];
+let calculations = [];
 
 let latestEquation;
 
-let latestResult;
+
 
 // Here's a wonderful place to make some routes:
 
@@ -42,33 +35,41 @@ app.post('/calculations', function (req, res) {
   // It shows up in `req.body`
   // Note that without express.json() or bodyParser setup above, req.body will be empty or undefined!
 
-  // let newNumbersToCalculate = req.body;
-  // console.log(`We got some POST data to /calculations:`, newNumbersToCalculate);
+  let newNumbersToCalculate = req.body;
+  console.log(`We got some POST data to /calculations:`, newNumbersToCalculate);
 
   // Grab the info we want from the request body
   // This is different every time, so that's why we like to console log the data, so we can see what we are working with.
-  let calculationToAdd = req.body.calculationToAdd;
-  console.log(`Adding new calculation: `, calculationToAdd);
+  // let calculationToAdd = req.body.calculationToAdd;
+  // console.log(`Adding new calculation: `, calculationToAdd);
 
-  function newCalculationResult(){
-    if (calculationToAdd.operator === "+"){
-      latestResult = calculationToAdd.numOne + calculationToAdd.numTwo
-    } else if (calculationToAdd.operator === "-"){
-      latestResult = calculationToAdd.numOne - calculationToAdd.numTwo
-    } else if (calculationToAdd.operator === "*"){
-      latestResult = calculationToAdd.numOne * calculationToAdd.numTwo
-    } else if (calculationToAdd.operator === "/"){
-      latestResult = calculationToAdd.numOne / calculationToAdd.numTwo
+  let latestResult;
+
+    if (newNumbersToCalculate.operator === "+"){
+      latestResult = parseFloat(newNumbersToCalculate.numOne) + parseFloat(newNumbersToCalculate.numTwo);
+    } else if (newNumbersToCalculate.operator === "-"){
+      latestResult = newNumbersToCalculate.numOne - newNumbersToCalculate.numTwo
+    } else if (newNumbersToCalculate.operator === "*"){
+      latestResult = newNumbersToCalculate.numOne * newNumbersToCalculate.numTwo
+    } else if (newNumbersToCalculate.operator === "/"){
+      latestResult = newNumbersToCalculate.numOne / newNumbersToCalculate.numTwo
     } 
-  }
-newCalculationResult();
-console.log ('The latest result is: ', latestResult)
+    
+
+console.log ('The latest results is:', (latestResult));
+
+newNumbersToCalculate.result = Number(latestResult);
 
   // // Push the new calculation into our array
-  // calculations.push(calculationToAdd);
+  
+  calculations.push(newNumbersToCalculate);
+  console.log('console.log of calculations array', calculations)
+
+
 
   // Send back a status code of 201
   res.sendStatus(201);
+  console.log('sendStatus', res.sendStatus);
 });
 
 

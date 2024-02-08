@@ -10,19 +10,21 @@
   <body>
     <h1>Server-Side Calculator</h1>
 
-    <form data-testid="calculator">
+    <form data-testid="calculator" onsubmit="onFormSubmit(event)">
       <input type="number" id="first_number" placeholder="First Number">
       <button id="plus" onclick="onAddClick(event)">+</button>
       <button id="minus" onclick="onMinusClick(event)">-</button>
       <button id="multiply" onclick="onMultiplicationClick(event)">*</button>
       <button id="divide" onclick="onDivisionClick(event)">/</button>
       <input type="number" id="second_number" placeholder="Second Number">
-      <button id="equal" onsubmit="onEqualClick(event)">=</button>
-      <button id="clear">C</button>
+      <button id="equal">=</button>
+      <button id="clear" onclick="onClearClick()">C</button>
     </form>
 
     <section id="recentResult" data-testid="recentResult">
       <!-- The most recent calculation result goes here. -->
+      <h2></h2>
+      
     </section>
 
     <section id="resultHistory" data-testid="resultHistory">

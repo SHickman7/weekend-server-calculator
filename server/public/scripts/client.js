@@ -39,9 +39,12 @@ function renderToDOM (calculations){
         let outputElement = document.getElementById('resultHistory');
         // Empty the output element, so we don't keep the old results.
         // We want to start fresh each time we add the list, since we always add the whole list.
-        //outputElement.innerHTML = '';
+        outputElement.innerHTML = '';
     
-        // Add the quotes to the DOM.
+        let outputTelement2 = document.querySelector('h2');
+        outputTelement2.innerHTML = '';
+
+        // Add the calculation to the DOM.
         for (let calculation of calculations) {
             // Create a <li> for each calculation and append it to outputElement
             outputElement.innerHTML += `
@@ -49,8 +52,19 @@ function renderToDOM (calculations){
                   ${calculation.numOne} ${calculation.operator} ${calculation.numTwo} = ${calculation.result}
                 </li>
               `;
+              outputTelement2.innerHTML = `${Number(calculation.result)}`;
+              
+              //console.log('calculations.result',calculation.result)
         }
-    }
+        
+        // let outputTelement2 = document.getElementById('recent_result');
+        // outputTelement2.innerHTML = '';
+        // outputTelement2.innerHTML += `${Number(calculations.result)}`;
+
+        }
+    
+
+
 
 function onAddClick(event){
     event.preventDefault();
@@ -72,9 +86,11 @@ function onDivisionClick(event){
     event.preventDefault();
     operator = "/";
 }
+
+
     
 
-function onEqualClick(event){
+function onFormSubmit(event){
     //to stop the page from refreshing:
     event.preventDefault();
 
@@ -87,23 +103,26 @@ function onEqualClick(event){
         method: 'POST',
         url: '/calculations',
         data: {
-            calculationToAdd: {
             numOne: newFirstNumber,
             numTwo: newSecondNumber,
             operator: newOperator
             }
         }
-    })
+    )
 
         .then(function (response) {
             console.log ("Request to POST /calculations succeeded with status:", response.status);
-
-            
             getCalculations()
+        
         })
         .catch(function (error){
             alert('Request to POST /calculations failed.');
             console.error('Request to POST /calculations failed:', error);
         });
 
+}
+
+function onClearClick(){
+    document.getElementById('first_number').value = '';
+    document.getElementById('second_number').value = '';
 }
